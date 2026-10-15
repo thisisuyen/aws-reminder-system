@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reminder System | AWS Serverless</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header class="topbar">
+        <div class="brand">
+            <span class="brand-icon" aria-hidden="true">◷</span>
+            <div>
+                <h1>Reminder System</h1>
+                <p>Hệ thống đặt lịch nhắc việc qua Email</p>
+            </div>
+        </div>
+        <span class="project-label">AWS SERVERLESS · TUẦN 1</span>
+    </header>
+
+    <main class="dashboard">
+        <!-- CỘT TRÁI: FORM TẠO LỜI NHẮC -->
+        <section class="panel form-panel" aria-labelledby="create-heading">
+            <div class="panel-heading">
+                <div>
+                    <h2 id="create-heading">Tạo lời nhắc</h2>
+                    <p>Điền thông tin để thiết lập lời nhắc mới.</p>
+                </div>
+                <span class="heading-symbol" aria-hidden="true">＋</span>
+            </div>
+
+            <form id="reminder-form">
+                <div class="field">
+                    <label for="title">Tiêu đề <span class="required">*</span></label>
+                    <input id="title" name="title" type="text" placeholder="Ví dụ: Họp nhóm đồ án" required>
+                </div>
+
+                <div class="field">
+                    <label for="description">Nội dung</label>
+                    <textarea id="description" name="description" rows="3" placeholder="Ví dụ: Họp nhóm lúc 20 giờ"></textarea>
+                </div>
+
+                <div class="two-fields">
+                    <div class="field">
+                        <label for="reminder-date">Ngày nhắc <span class="required">*</span></label>
+                        <input id="reminder-date" name="reminderDate" type="date" required>
+                    </div>
+                    <div class="field">
+                        <label for="reminder-time">Giờ nhắc <span class="required">*</span></label>
+                        <input id="reminder-time" name="reminderTime" type="time" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <label for="email">Email nhận thông báo <span class="required">*</span></label>
+                    <select id="email" name="email" required>
+                        <option value="" selected>Chọn email đã xác nhận SNS</option>
+                        <option value="nhom@example.com">nhom@example.com (minh họa)</option>
+                    </select>
+                </div>
+
+                <button class="primary-button" type="button">＋ Tạo lời nhắc</button>
+            </form>
+
+            <div class="form-footnote">
+                <span class="tiny-dot" aria-hidden="true"></span>
+                Bản mẫu tuần 1 · Chưa kết nối API Gateway
+            </div>
+        </section>
+
+        <!-- CỘT PHẢI: DANH SÁCH LỜI NHẮC -->
+        <section class="panel list-panel" aria-labelledby="list-heading">
+            <div class="panel-heading list-heading">
+                <div>
+                    <h2 id="list-heading">Danh sách lời nhắc</h2>
+                    <p>Dữ liệu minh họa cho giao diện tuần 1.</p>
+                </div>
+                <span class="count-pill">3 lời nhắc</span>
+            </div>
+
+            <div class="summary-strip" aria-label="Tổng quan trạng thái">
+                <div class="summary-item"><span>Tổng</span><strong>03</strong></div>
+                <div class="summary-item"><span>Đang chờ</span><strong>02</strong></div>
+                <div class="summary-item"><span>Đã gửi</span><strong>01</strong></div>
+            </div>
+
+            <div class="table-area">
+                <table>
+                    <thead>
+                        <tr>
+                            <th scope="col">Lời nhắc</th>
+                            <th scope="col">Thời gian</th>
+                            <th scope="col">Trạng thái</th>
+                            <th scope="col">Thao tác</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>
+                                <strong class="item-title">Họp nhóm đồ án</strong>
+								<span class="item-note">Họp nhóm lúc 20 giờ</span>
+                            </td>
+                            <td><span class="date">25/10/2026</span><span class="clock">19:45</span></td>
+                            <td><span class="status pending">PENDING</span></td>
+                            <td><button class="delete-button" type="button">Xóa</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="item-title">Nộp báo cáo</strong>
+                                <span class="item-note">Báo cáo tiến độ nhóm</span>
+                            </td>
+                            <td><span class="date">26/10/2026</span><span class="clock">08:00</span></td>
+                            <td><span class="status pending">PENDING</span></td>
+                            <td><button class="delete-button" type="button">Xóa</button></td>
+                        </tr>
+                        <tr>
+                            <td>
+                                <strong class="item-title">Kiểm tra giao diện</strong>
+                                <span class="item-note">Dữ liệu kiểm thử mẫu</span>
+                            </td>
+                            <td><span class="date">12/10/2026</span><span class="clock">20:00</span></td>
+                            <td><span class="status sent">SENT</span></td>
+                            <td><button class="view-button" type="button">Xem</button></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="list-footnote">Các nút là thành phần giao diện mẫu; chức năng sẽ tích hợp từ tuần 2–3.</div>
+        </section>
+    </main>
+</body>
+</html>
