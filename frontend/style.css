@@ -223,3 +223,9 @@ th:last-child, td:last-child { text-align: center; padding-right: 5px; }
     .two-fields { grid-template-columns: minmax(0, 1fr); gap: 0; }
     table { min-width: 540px; }
 }
+
+/* Trang thai ket qua gui API - Tuan 2 */
+.form-feedback { min-height: 18px; margin: 10px 0 0; font-size: 12px; color: #a92d20; }
+.form-feedback[data-type="success"] { color: #167043; }
+.form-feedback[data-type="info"] { color: #2255a4; }
+.primary-button:disabled { opacity: .6; cursor: wait; }
