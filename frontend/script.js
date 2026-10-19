@@ -1,5 +1,7 @@
-const API_POST_URL = "https://ye66v28l22.execute-api.us-east-1.amazonaws.com/reminders";
-const CONFIRMED_SNS_EMAIL = "24110378@student.hcmute.edu.vn";
+
+// Cau hinh de demo. Chua can cap nhat khi chua co URL/API va email that.
+const API_POST_URL = "https://c3vvd6ghug.execute-api.us-east-1.amazonaws.com/reminders";
+const CONFIRMED_SNS_EMAIL = "24110379@student.hcmute.edu.vn";
 
 const form = document.querySelector("#reminder-form");
 const submitButton = form.querySelector('button[type="submit"]');
