@@ -20,7 +20,7 @@ Lưu trữ và cung cấp website tĩnh.
 Lưu các file HTML, CSS và JavaScript
 của giao diện hệ thống.
 
-Các file dự kiến:
+Các file đã triển khai:
 
 * index.html
 * style.css
@@ -31,6 +31,8 @@ Các file dự kiến:
 Cung cấp giao diện cho người dùng.
 Website gửi HTTP request đến API Gateway.
 
+Website S3: [Mở website](http://aws-reminder-serverless-week3-demo.s3-website-us-east-1.amazonaws.com).
+
 ## 3\. Amazon API Gateway
 
 ### Chức năng
@@ -38,7 +40,7 @@ Website gửi HTTP request đến API Gateway.
 Tiếp nhận HTTP request từ frontend
 và chuyển yêu cầu đến AWS Lambda.
 
-### Các Route dự kiến
+### Các Route đã triển khai
 
 |Method|Endpoint|Chức năng|
 |-|-|-|
@@ -50,7 +52,7 @@ và chuyển yêu cầu đến AWS Lambda.
 
 Kết nối website với Lambda API.
 
-Loại API dự kiến: HTTP API.
+Loại API: HTTP API. Tên `reminder-http-api`, ID `c3vvd6ghug`.
 
 ## 4\. AWS Lambda
 
@@ -60,24 +62,21 @@ Chạy mã xử lý khi có sự kiện.
 
 ### Lambda API
 
-Tên: reminder-api-lambda
+Các Lambda API đã triển khai:
 
-Nhiệm vụ:
-
-* Nhận request từ API Gateway.
-* Kiểm tra dữ liệu đầu vào.
-* Lưu dữ liệu vào DynamoDB.
-* Tạo lịch EventBridge Scheduler.
+* `reminder-create-api`: tạo lời nhắc, lưu DynamoDB và tạo EventBridge Schedule.
+* `reminder-get-api`: đọc danh sách từ DynamoDB.
+* `reminder-delete-api`: xóa lời nhắc và hủy lịch Scheduler khi còn chờ.
 
 ### Lambda Send
 
-Tên: reminder-send-lambda
+Tên: reminder-send
 
 Nhiệm vụ:
 
 * Nhận sự kiện từ Scheduler.
 * Gửi thông báo đến Amazon SNS.
-* Phối hợp cập nhật trạng thái lời nhắc.
+* Cập nhật trạng thái `PENDING` → `SENDING` → `SENT` trong DynamoDB.
 
 ## 5\. Amazon DynamoDB
 
@@ -85,7 +84,7 @@ Nhiệm vụ:
 
 Lưu trữ dữ liệu lời nhắc dưới dạng NoSQL.
 
-### Bảng dự kiến
+### Bảng đã triển khai
 
 Table: Reminders
 
@@ -101,6 +100,8 @@ Các thuộc tính:
 * status
 * scheduleName
 * createdAt
+* sentAt, snsMessageId (khi gửi thành công)
+* cancelledAt (khi xử lý hủy)
 
 ### Vai trò
 
@@ -114,7 +115,7 @@ chức năng tạo, xem và xóa lời nhắc.
 Kích hoạt một tác vụ vào thời gian
 được xác định trước.
 
-### Cấu hình dự kiến
+### Cấu hình đã triển khai
 
 Schedule Type: One-time
 
@@ -122,7 +123,9 @@ Timezone: Asia/Ho\_Chi\_Minh
 
 Flexible Time Window: OFF
 
-Target: reminder-send-lambda
+Schedule Group: reminder-week2
+
+Target: reminder-send
 
 ### Vai trò
 
@@ -146,9 +149,9 @@ Subscription: Đối tượng đăng ký nhận.
 
 Publish: Thao tác gửi thông báo.
 
-### Cấu hình dự kiến
+### Cấu hình đã triển khai
 
-Topic: reminder-notification-topic
+Topic: reminder-email-topic
 
 Protocol: Email
 
@@ -181,7 +184,7 @@ Hỗ trợ kiểm tra và giám sát backend.
 
 Quản lý quyền truy cập dịch vụ AWS.
 
-### Role dự kiến
+### Role sử dụng
 
 LabRole trong AWS Learner Lab.
 
@@ -203,8 +206,7 @@ EventBridge Scheduler:
 * Sử dụng execution role hợp lệ.
 * Kích hoạt Lambda Send.
 
-Khả năng sử dụng LabRole cho Scheduler
-cần được xác nhận bằng kiểm thử thực tế.
+Vai trò được kiểm thử trong AWS Learner Lab qua luồng EventBridge Scheduler gọi Lambda Send.
 
 ## 10\. Kiến trúc tích hợp
 
@@ -238,3 +240,9 @@ IAM: Quản lý quyền truy cập.
 * Xác định phương án gửi Email qua SNS.
 * Chuẩn bị cơ sở triển khai từ tuần 2.
 
+
+## 12. Cập nhật triển khai tuần 3
+
+* Đã triển khai GET, DELETE, cập nhật trạng thái `SENT` và S3 Static Website Hosting.
+* Các dịch vụ và tên tài nguyên bên trên được cập nhật từ cấu hình thực hiện, không còn là tên dự kiến trong tuần 1.
+* Minh chứng: [API Gateway](https://github.com/thisisuyen/aws-reminder-system/blob/main/minhchung/tuan3/backend/16-APIGateway-routes-CORS.png) · [S3](https://github.com/thisisuyen/aws-reminder-system/blob/main/minhchung/tuan3/s3/04-S3-website-live.png) · [Kiểm thử tuần 3](https://github.com/thisisuyen/aws-reminder-system/blob/main/docs/week3-test.md).
