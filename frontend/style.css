@@ -199,12 +199,11 @@ th:last-child, td:last-child { text-align: center; padding-right: 5px; }
 .view-button { color: #1d4ed8; background: #eaf2ff; }
 .list-footnote { margin-top: auto; padding-top: 14px; font-size: 11px; color: var(--muted); }
 
-/* Desktop: toàn bộ form và bảng nằm trong một màn hình thông dụng. */
+
 @media (min-width: 981px) and (min-height: 650px) {
     body { overflow: hidden; }
 }
 
-/* Màn hình nhỏ: cho phép cuộn để không cắt mất thông tin. */
 @media (max-width: 980px), (max-height: 649px) {
     .dashboard { height: auto; min-height: calc(100dvh - 72px); }
     .panel { min-height: auto; }
@@ -224,8 +223,17 @@ th:last-child, td:last-child { text-align: center; padding-right: 5px; }
     table { min-width: 540px; }
 }
 
-/* Trang thai ket qua gui API - Tuan 2 */
+
 .form-feedback { min-height: 18px; margin: 10px 0 0; font-size: 12px; color: #a92d20; }
 .form-feedback[data-type="success"] { color: #167043; }
 .form-feedback[data-type="info"] { color: #2255a4; }
 .primary-button:disabled { opacity: .6; cursor: wait; }
+
+
+.list-actions { display: flex; align-items: center; gap: 8px; flex-wrap: wrap; justify-content: flex-end; }
+.status.sending { color: #1e40af; background: #dbeafe; }
+.status.cancelled { color: #475569; background: #e2e8f0; }
+.status.send-failed, .status.schedule-failed { color: #991b1b; background: #fee2e2; }
+.delete-button:disabled, .view-button:disabled { cursor: not-allowed; opacity: .5; }
+.item-id { overflow-wrap: anywhere; font-size: 11px; color: #475569; }
+#list-feedback { margin: 6px 0 0; }

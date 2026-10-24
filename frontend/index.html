@@ -15,11 +15,11 @@
                 <p>Hệ thống đặt lịch nhắc việc qua Email</p>
             </div>
         </div>
-        <span class="project-label">AWS SERVERLESS · TUẦN 2</span>
+        <span class="project-label">AWS SERVERLESS · TUẦN 3</span>
     </header>
 
     <main class="dashboard">
-        <!-- CỘT TRÁI: FORM TẠO LỜI NHẮC -->
+       
         <section class="panel form-panel" aria-labelledby="create-heading">
             <div class="panel-heading">
                 <div>
@@ -65,24 +65,24 @@
 
             <div class="form-footnote">
                 <span class="tiny-dot" aria-hidden="true"></span>
-                Tuần 2 · Kết nối API qua script.js · Chỉ dùng email đã xác nhận SNS
+                Tuần 3 · Tạo, xem, hủy lời nhắc · Email theo SNS Subscription đã xác nhận
             </div>
         </section>
 
-        <!-- CỘT PHẢI: DANH SÁCH LỜI NHẮC -->
+        
         <section class="panel list-panel" aria-labelledby="list-heading">
             <div class="panel-heading list-heading">
                 <div>
                     <h2 id="list-heading">Danh sách lời nhắc</h2>
-                    <p>Các lời nhắc vừa tạo thành công trong phiên này.</p>
+                    <p>Dữ liệu lấy trực tiếp từ DynamoDB qua GET /reminders.</p>
                 </div>
-                <span class="count-pill" id="reminder-count">0 lời nhắc</span>
+                <div class="list-actions"><button class="view-button" id="refresh-reminders" type="button">↻ Làm mới</button><span class="count-pill" id="reminder-count">0 lời nhắc</span></div>
             </div>
 
             <div class="summary-strip" aria-label="Tổng quan trạng thái">
                 <div class="summary-item"><span>Tổng</span><strong id="created-count">00</strong></div>
                 <div class="summary-item"><span>Đang chờ</span><strong id="pending-count">00</strong></div>
-                <div class="summary-item"><span>Đã gửi</span><strong>—</strong></div>
+                <div class="summary-item"><span>Đã gửi</span><strong id="sent-count">00</strong></div>
             </div>
 
             <div class="table-area">
@@ -93,15 +93,17 @@
                             <th scope="col">Thời gian</th>
                             <th scope="col">Trạng thái</th>
                             <th scope="col">Mã</th>
+                            <th scope="col">Thao tác</th>
                         </tr>
                     </thead>
                     <tbody id="reminder-rows">
-                        <tr><td colspan="4">Chưa có lời nhắc được tạo trong phiên này.</td></tr>
+                        <tr><td colspan="5">Đang tải danh sách lời nhắc...</td></tr>
                     </tbody>
                 </table>
             </div>
 
-            <div class="list-footnote">Danh sách này chỉ cập nhật trong phiên trình duyệt; chưa có GET /reminders để tải dữ liệu cũ hoặc cập nhật trạng thái đã gửi.</div>
+            <p id="list-feedback" class="form-feedback" role="status" aria-live="polite"></p>
+            <div class="list-footnote">Tuần 3 · GET/DELETE dùng API thật. Lời nhắc đang chờ sẽ hủy Scheduler rồi xóa dữ liệu; lời nhắc đã gửi có thể xóa khỏi danh sách. SENT là SNS nhận Publish, không chứng minh email được phát tới hộp thư.</div>
         </section>
     </main>
     <script src="script.js" defer></script>
